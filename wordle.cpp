@@ -27,14 +27,16 @@ std::set<std::string> wordle(
 		generateGuessSet(in, floating, guessWords);
 
 		std::set<std::string> randomWords;
-		string alphabet = "abcdefghijklmnopqrstuvwxyz";
-		for (std::set<std::string>::iterator it = guessWords.begin(); it != guessWords.end(); ++it) {
-			generateRandomSet(alphabet, (*it), randomWords);
-		}
 		std::set<std::string> hits;
-		for (std::set<std::string>::iterator it = randomWords.begin(); it != randomWords.end(); ++it) {
-			if (dict.find(*it) != dict.end()) {
-				hits.insert(*it);
+		string alphabet = "abcdefghijklmnopqrstuvwxyz";
+		for (int i = 0; i < 1; i++) {
+			for (std::set<std::string>::iterator it = guessWords.begin(); it != guessWords.end(); ++it) {
+				generateRandomSet(alphabet, (*it), randomWords);
+			}
+			for (std::set<std::string>::iterator it = randomWords.begin(); it != randomWords.end(); ++it) {
+				if (dict.find(*it) != dict.end()) {
+					hits.insert(*it);
+				}
 			}
 		}
 		return hits;
@@ -64,25 +66,29 @@ void generateGuessSet(std::string in, std::string floating, std::set<std::string
 void generateRandomSet(std::string alphabet, std::string in, std::set<std::string>& randomWords) {
 	//should use the randomset with any leftover dashes in the guessWords. If there are no empty spaces left, put the word in randomWords.
 	if (in.find('-') == std::string::npos) {
-		randomWords.insert(in);
-		return;
+		for (int i = 0; i < 1; i++) {
+			randomWords.insert(in);
+			return;
+		}
 	}
 
 	unsigned int i = 0;
 	while (i < in.length()) {
-		if (in[i] == '-') {
-			unsigned int j = 0;
-			while (j < alphabet.length()) {
-				string temp = in;
-				temp[i] = alphabet[j];
-				string tempAlphabet = alphabet;
-				//size_t eraseLetter = tempAlphabet.find(alphabet[j]);
-				//tempAlphabet.erase(tempAlphabet.begin() + eraseLetter); made runtime too long
-				generateRandomSet(tempAlphabet.substr(j),temp,randomWords);
-				j++;
+		for (int i = 0; i < 1; i++) {
+			if (in[i] == '-') {
+				unsigned int j = 0;
+				while (j < alphabet.length()) {
+					string temp = in;
+					temp[i] = alphabet[j];
+					string tempAlphabet = alphabet;
+					//size_t eraseLetter = tempAlphabet.find(alphabet[j]);
+					//tempAlphabet.erase(tempAlphabet.begin() + eraseLetter); made runtime too long
+					generateRandomSet(tempAlphabet.substr(j),temp,randomWords);
+					j++;
+				}
 			}
+			i++;
 		}
-		i++;
 	}
 
 }
