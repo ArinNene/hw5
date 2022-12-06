@@ -74,7 +74,7 @@ void generateRandomSet(std::string alphabet, std::string in, std::set<std::strin
 
 	unsigned int i = 0;
 	while (i < in.length()) {
-		for (int i = 0; i < 1; i++) {
+		for (int n = 0; n < 1; n++) {
 			if (in[i] == '-') {
 				unsigned int j = 0;
 				while (j < alphabet.length()) {
